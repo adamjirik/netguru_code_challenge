@@ -14,3 +14,6 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    environment:
+      - SECRET_KEY=F2F61513A46CAC14B2D7A314C19A2
+      - API_KEY=4698efcc 
