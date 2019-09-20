@@ -16,8 +16,12 @@ How to run this repo:
   - run `docker-compose up -d`
   - run `docker-compose exec api createsuperuser` and follow the terminal instructions to create a super user
   - run `docker-compose exec api migrate` to apply the migrations to the database
+ 
+------------
+
   
 VIEWS
+------------
 
 GET /movies/
 Returns all movies stored in the database
@@ -44,6 +48,8 @@ request body:
   - `movie` - the id of the movie in the database
   
 Posts a comment to the movie given in the request body.
+
+------------
 
 GET /top/
 Returns all movie ids from the database and gives them a ranking based on the number of comments.
