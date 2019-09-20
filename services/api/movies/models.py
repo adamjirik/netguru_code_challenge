@@ -19,7 +19,7 @@ class Movie(models.Model):
     metascore = models.IntegerField(null=True)
     imdbrating = models.DecimalField(max_digits=4, decimal_places=1, null=True)
     imdbvotes = models.IntegerField(null=True)  # needs to be parsed from omdb i.e. "72,555"
-    imdbid = models.CharField(max_length=40, null=True, unique=True) #TODO change to unique
+    imdbid = models.CharField(max_length=40, null=True, unique=True)
     type = models.CharField(max_length=20, null=True)
     dvd = models.DateField(null=True)
     boxoffice = models.IntegerField(null=True)
