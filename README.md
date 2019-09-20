@@ -30,6 +30,7 @@ request body:
   - `title` - the title of the movie to be added
 
 Fetches data from OMDb API (http://www.omdbapi.com/), saves it to the database and returns information about the movie.
+
 ------------
 
 GET /comments/
