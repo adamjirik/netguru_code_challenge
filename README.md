@@ -4,11 +4,11 @@ Code challenge for Netguru: move database
 How to run this repo:
 
 1. install `docker` and `docker-compose`:
-  `docker`:
-  - Windows users: https://runnable.com/docker/install-docker-on-windows-10
-  - Linux users: https://runnable.com/docker/install-docker-on-linux
-  `docker-compose`:
-  https://docs.docker.com/compose/install/
+  - `docker`:
+    - Windows users: https://runnable.com/docker/install-docker-on-windows-10
+    - Linux users: https://runnable.com/docker/install-docker-on-linux
+  - `docker-compose`:
+    - https://docs.docker.com/compose/install/
   
 2. clone this repo
 3. Running locally:
