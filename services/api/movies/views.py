@@ -7,6 +7,8 @@ from .models import *
 from .serializers import *
 from .utils import *
 from .filters import *
+from rest_framework import filters
+
 
 class RatingViewSet(viewsets.ModelViewSet):
     queryset = Rating.objects.all()
@@ -27,16 +29,13 @@ class CommentViewSet(viewsets.ModelViewSet):
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
-    filter_backends = [YearRangeFilterBackend, MovieFieldFilterBackend]
+    filter_backends = [YearRangeFilterBackend, MovieFieldFilterBackend, filters.OrderingFilter]
 
     def create(self, request):
         movie_serializer = MovieSerializer(data=request.data)
         movie_serializer.is_valid(raise_exception=True)
         movie_obj = movie_serializer.save()
-        if movie_obj != None:
-            return Response(movie_serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response({'Response': 'Movie not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response(movie_serializer.data, status=status.HTTP_201_CREATED)
         
 
 class TopViewSet(viewsets.ReadOnlyModelViewSet):

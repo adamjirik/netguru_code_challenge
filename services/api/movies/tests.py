@@ -56,7 +56,7 @@ class TestOmdbApi(TestCase):
         json = make_request_to_omdb("dr+strangelove")
         new_movie = format_omdb_response(json)
         for key in new_movie.keys():
-            if key == 'ratings': # key shows up as ratings
+            if key == 'response': 
                 continue
             self.assertIn(key, Movie.__dict__.keys())
         for rating in new_movie['ratings']:
@@ -68,6 +68,7 @@ class TestOmdbApi(TestCase):
         movie = format_omdb_response(json)
         new_movie = format_movie_fields(movie)
         ratings = new_movie.pop('ratings')
+        new_movie.pop('response')
         movie_obj = Movie(**new_movie)
         movie_obj.save()
         for rating in ratings:
@@ -270,3 +271,7 @@ class TestOrdering(TestCase):
         json = response.json()
         self.assertEqual(json[0]['runtime'], 60)
         self.assertEqual(json[-1]['runtime'], 90)
+        response = self.client.get('/movies/?ordering=-imdbrating')
+        json = response.json()
+        self.assertEqual(json[0]['imdbrating'], '9.2')
+        self.assertEqual(json[-1]['runtime'], '7')
