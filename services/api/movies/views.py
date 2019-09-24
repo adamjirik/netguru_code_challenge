@@ -33,7 +33,10 @@ class MovieViewSet(viewsets.ModelViewSet):
         movie_serializer = MovieSerializer(data=request.data)
         movie_serializer.is_valid(raise_exception=True)
         movie_obj = movie_serializer.save()
-        return Response(movie_serializer.data, status=status.HTTP_201_CREATED)
+        if movie_obj != None:
+            return Response(movie_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'Response': 'Movie not found'}, status=status.HTTP_404_NOT_FOUND)
         
 
 class TopViewSet(viewsets.ReadOnlyModelViewSet):

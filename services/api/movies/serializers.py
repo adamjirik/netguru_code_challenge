@@ -3,6 +3,7 @@ from django.db.models import Count
 from django.forms.models import model_to_dict
 from .models import *
 from .utils import *
+from .exceptions import MovieNotFoundException
 
 class RatingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,6 +26,10 @@ class MovieSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         data = make_request_and_format(validated_data['title'])
+        if data['response'] == 'False':
+            raise MovieNotFoundException
+        else:
+            data.pop('response')
         ratings_data = data.pop('ratings')
         movie = Movie.objects.create(**data)
         for rating in ratings_data:

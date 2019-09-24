@@ -17,8 +17,8 @@ def format_omdb_response(old):
             new_rating = dict((key.lower(), value) for (key, value) in rating.items())
             new_ratings.append(new_rating)
         new_movie['ratings'] = new_ratings
-    if 'response' in new_movie.keys():
-        new_movie.pop('response')
+    # if 'response' in new_movie.keys():
+    #     new_movie.pop('response')
     return new_movie
 
 def format_movie_fields(movie):
