@@ -4,3 +4,5 @@ gunicorn
 djangorestframework
 requests
 django-heroku
+pyyaml
+uritemplate

@@ -1,0 +1,917 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /movies/:
+    get:
+      operationId: listMovies
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      readOnly: true
+                    ratings:
+                      type: array
+                      items:
+                        properties:
+                          source:
+                            type: string
+                            maxLength: 100
+                          value:
+                            type: string
+                            maxLength: 20
+                        required:
+                        - source
+                        - value
+                      readOnly: true
+                      nullable: true
+                    comments:
+                      type: string
+                      readOnly: true
+                    title:
+                      type: string
+                      maxLength: 177
+                    year:
+                      type: string
+                      readOnly: true
+                    rated:
+                      type: string
+                      readOnly: true
+                    released:
+                      type: string
+                      format: date
+                      readOnly: true
+                    runtime:
+                      type: integer
+                      readOnly: true
+                    genre:
+                      type: string
+                      readOnly: true
+                    director:
+                      type: string
+                      readOnly: true
+                    writer:
+                      type: string
+                      readOnly: true
+                    actors:
+                      type: string
+                      readOnly: true
+                    plot:
+                      type: string
+                      readOnly: true
+                    language:
+                      type: string
+                      readOnly: true
+                    country:
+                      type: string
+                      readOnly: true
+                    awards:
+                      type: string
+                      readOnly: true
+                    poster:
+                      type: string
+                      format: uri
+                      readOnly: true
+                      pattern: "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                        d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                        [[0-9a-f:\\.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                        -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                        .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                        .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                    metascore:
+                      type: integer
+                      readOnly: true
+                    imdbrating:
+                      type: number
+                      multipleOf: 0.1
+                      maximum: 1000
+                      minimum: -1000
+                      readOnly: true
+                    imdbvotes:
+                      type: integer
+                      readOnly: true
+                    imdbid:
+                      type: string
+                      readOnly: true
+                    type:
+                      type: string
+                      readOnly: true
+                    dvd:
+                      type: string
+                      format: date
+                      readOnly: true
+                    boxoffice:
+                      type: integer
+                      readOnly: true
+                    production:
+                      type: string
+                      readOnly: true
+                    website:
+                      type: string
+                      format: uri
+                      readOnly: true
+                      pattern: "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                        d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                        [[0-9a-f:\\.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                        -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                        .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                        .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  required:
+                  - title
+          description: ''
+    post:
+      operationId: createMovie
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                title:
+                  type: string
+                  maxLength: 177
+              required:
+              - title
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  ratings:
+                    type: array
+                    items:
+                      properties:
+                        source:
+                          type: string
+                          maxLength: 100
+                        value:
+                          type: string
+                          maxLength: 20
+                      required:
+                      - source
+                      - value
+                    readOnly: true
+                    nullable: true
+                  comments:
+                    type: string
+                    readOnly: true
+                  title:
+                    type: string
+                    maxLength: 177
+                  year:
+                    type: string
+                    readOnly: true
+                  rated:
+                    type: string
+                    readOnly: true
+                  released:
+                    type: string
+                    format: date
+                    readOnly: true
+                  runtime:
+                    type: integer
+                    readOnly: true
+                  genre:
+                    type: string
+                    readOnly: true
+                  director:
+                    type: string
+                    readOnly: true
+                  writer:
+                    type: string
+                    readOnly: true
+                  actors:
+                    type: string
+                    readOnly: true
+                  plot:
+                    type: string
+                    readOnly: true
+                  language:
+                    type: string
+                    readOnly: true
+                  country:
+                    type: string
+                    readOnly: true
+                  awards:
+                    type: string
+                    readOnly: true
+                  poster:
+                    type: string
+                    format: uri
+                    readOnly: true
+                    pattern: "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:\\.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  metascore:
+                    type: integer
+                    readOnly: true
+                  imdbrating:
+                    type: number
+                    multipleOf: 0.1
+                    maximum: 1000
+                    minimum: -1000
+                    readOnly: true
+                  imdbvotes:
+                    type: integer
+                    readOnly: true
+                  imdbid:
+                    type: string
+                    readOnly: true
+                  type:
+                    type: string
+                    readOnly: true
+                  dvd:
+                    type: string
+                    format: date
+                    readOnly: true
+                  boxoffice:
+                    type: integer
+                    readOnly: true
+                  production:
+                    type: string
+                    readOnly: true
+                  website:
+                    type: string
+                    format: uri
+                    readOnly: true
+                    pattern: "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:\\.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                required:
+                - title
+          description: ''
+  /movies/{id}/:
+    get:
+      operationId: retrieveMovie
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this movie.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  ratings:
+                    type: array
+                    items:
+                      properties:
+                        source:
+                          type: string
+                          maxLength: 100
+                        value:
+                          type: string
+                          maxLength: 20
+                      required:
+                      - source
+                      - value
+                    readOnly: true
+                    nullable: true
+                  comments:
+                    type: string
+                    readOnly: true
+                  title:
+                    type: string
+                    maxLength: 177
+                  year:
+                    type: string
+                    readOnly: true
+                  rated:
+                    type: string
+                    readOnly: true
+                  released:
+                    type: string
+                    format: date
+                    readOnly: true
+                  runtime:
+                    type: integer
+                    readOnly: true
+                  genre:
+                    type: string
+                    readOnly: true
+                  director:
+                    type: string
+                    readOnly: true
+                  writer:
+                    type: string
+                    readOnly: true
+                  actors:
+                    type: string
+                    readOnly: true
+                  plot:
+                    type: string
+                    readOnly: true
+                  language:
+                    type: string
+                    readOnly: true
+                  country:
+                    type: string
+                    readOnly: true
+                  awards:
+                    type: string
+                    readOnly: true
+                  poster:
+                    type: string
+                    format: uri
+                    readOnly: true
+                    pattern: "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:\\.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  metascore:
+                    type: integer
+                    readOnly: true
+                  imdbrating:
+                    type: number
+                    multipleOf: 0.1
+                    maximum: 1000
+                    minimum: -1000
+                    readOnly: true
+                  imdbvotes:
+                    type: integer
+                    readOnly: true
+                  imdbid:
+                    type: string
+                    readOnly: true
+                  type:
+                    type: string
+                    readOnly: true
+                  dvd:
+                    type: string
+                    format: date
+                    readOnly: true
+                  boxoffice:
+                    type: integer
+                    readOnly: true
+                  production:
+                    type: string
+                    readOnly: true
+                  website:
+                    type: string
+                    format: uri
+                    readOnly: true
+                    pattern: "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:\\.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                required:
+                - title
+          description: ''
+    put:
+      operationId: updateMovie
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this movie.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                title:
+                  type: string
+                  maxLength: 177
+              required:
+              - title
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  ratings:
+                    type: array
+                    items:
+                      properties:
+                        source:
+                          type: string
+                          maxLength: 100
+                        value:
+                          type: string
+                          maxLength: 20
+                      required:
+                      - source
+                      - value
+                    readOnly: true
+                    nullable: true
+                  comments:
+                    type: string
+                    readOnly: true
+                  title:
+                    type: string
+                    maxLength: 177
+                  year:
+                    type: string
+                    readOnly: true
+                  rated:
+                    type: string
+                    readOnly: true
+                  released:
+                    type: string
+                    format: date
+                    readOnly: true
+                  runtime:
+                    type: integer
+                    readOnly: true
+                  genre:
+                    type: string
+                    readOnly: true
+                  director:
+                    type: string
+                    readOnly: true
+                  writer:
+                    type: string
+                    readOnly: true
+                  actors:
+                    type: string
+                    readOnly: true
+                  plot:
+                    type: string
+                    readOnly: true
+                  language:
+                    type: string
+                    readOnly: true
+                  country:
+                    type: string
+                    readOnly: true
+                  awards:
+                    type: string
+                    readOnly: true
+                  poster:
+                    type: string
+                    format: uri
+                    readOnly: true
+                    pattern: "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:\\.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  metascore:
+                    type: integer
+                    readOnly: true
+                  imdbrating:
+                    type: number
+                    multipleOf: 0.1
+                    maximum: 1000
+                    minimum: -1000
+                    readOnly: true
+                  imdbvotes:
+                    type: integer
+                    readOnly: true
+                  imdbid:
+                    type: string
+                    readOnly: true
+                  type:
+                    type: string
+                    readOnly: true
+                  dvd:
+                    type: string
+                    format: date
+                    readOnly: true
+                  boxoffice:
+                    type: integer
+                    readOnly: true
+                  production:
+                    type: string
+                    readOnly: true
+                  website:
+                    type: string
+                    format: uri
+                    readOnly: true
+                    pattern: "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:\\.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                required:
+                - title
+          description: ''
+    patch:
+      operationId: partial_updateMovie
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this movie.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                title:
+                  type: string
+                  maxLength: 177
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  ratings:
+                    type: array
+                    items:
+                      properties:
+                        source:
+                          type: string
+                          maxLength: 100
+                        value:
+                          type: string
+                          maxLength: 20
+                      required:
+                      - source
+                      - value
+                    readOnly: true
+                    nullable: true
+                  comments:
+                    type: string
+                    readOnly: true
+                  title:
+                    type: string
+                    maxLength: 177
+                  year:
+                    type: string
+                    readOnly: true
+                  rated:
+                    type: string
+                    readOnly: true
+                  released:
+                    type: string
+                    format: date
+                    readOnly: true
+                  runtime:
+                    type: integer
+                    readOnly: true
+                  genre:
+                    type: string
+                    readOnly: true
+                  director:
+                    type: string
+                    readOnly: true
+                  writer:
+                    type: string
+                    readOnly: true
+                  actors:
+                    type: string
+                    readOnly: true
+                  plot:
+                    type: string
+                    readOnly: true
+                  language:
+                    type: string
+                    readOnly: true
+                  country:
+                    type: string
+                    readOnly: true
+                  awards:
+                    type: string
+                    readOnly: true
+                  poster:
+                    type: string
+                    format: uri
+                    readOnly: true
+                    pattern: "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:\\.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                  metascore:
+                    type: integer
+                    readOnly: true
+                  imdbrating:
+                    type: number
+                    multipleOf: 0.1
+                    maximum: 1000
+                    minimum: -1000
+                    readOnly: true
+                  imdbvotes:
+                    type: integer
+                    readOnly: true
+                  imdbid:
+                    type: string
+                    readOnly: true
+                  type:
+                    type: string
+                    readOnly: true
+                  dvd:
+                    type: string
+                    format: date
+                    readOnly: true
+                  boxoffice:
+                    type: integer
+                    readOnly: true
+                  production:
+                    type: string
+                    readOnly: true
+                  website:
+                    type: string
+                    format: uri
+                    readOnly: true
+                    pattern: "^(?:[a-z0-9\\.\\-\\+]*)://(?:[^\\s:@/]+(?::[^\\s:@/]*)?@)?(?:(?:25[0-5]|2[0-4]\\\
+                      d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}|\\\
+                      [[0-9a-f:\\.]+\\]|([a-z\xA1-\uFFFF0-9](?:[a-z\xA1-\uFFFF0-9-]{0,61}[a-z\xA1\
+                      -\uFFFF0-9])?(?:\\.(?!-)[a-z\xA1-\uFFFF0-9-]{1,63}(?<!-))*\\\
+                      .(?!-)(?:[a-z\xA1-\uFFFF-]{2,63}|xn--[a-z0-9]{1,59})(?<!-)\\\
+                      .?|localhost))(?::\\d{2,5})?(?:[/?#][^\\s]*)?\\Z"
+                required:
+                - title
+          description: ''
+    delete:
+      operationId: destroyMovie
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this movie.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /comments/:
+    get:
+      operationId: listComments
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      readOnly: true
+                    value:
+                      type: string
+                    movie:
+                      type: integer
+                  required:
+                  - value
+                  - movie
+          description: ''
+    post:
+      operationId: createComment
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                value:
+                  type: string
+                movie:
+                  type: integer
+              required:
+              - value
+              - movie
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  value:
+                    type: string
+                  movie:
+                    type: integer
+                required:
+                - value
+                - movie
+          description: ''
+  /comments/{id}/:
+    get:
+      operationId: retrieveComment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this comment.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  value:
+                    type: string
+                  movie:
+                    type: integer
+                required:
+                - value
+                - movie
+          description: ''
+    put:
+      operationId: updateComment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this comment.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                value:
+                  type: string
+                movie:
+                  type: integer
+              required:
+              - value
+              - movie
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  value:
+                    type: string
+                  movie:
+                    type: integer
+                required:
+                - value
+                - movie
+          description: ''
+    patch:
+      operationId: partial_updateComment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this comment.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                value:
+                  type: string
+                movie:
+                  type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  value:
+                    type: string
+                  movie:
+                    type: integer
+                required:
+                - value
+                - movie
+          description: ''
+    delete:
+      operationId: destroyComment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this comment.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /top/:
+    get:
+      operationId: listMovies
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      readOnly: true
+                    comments:
+                      type: string
+                      readOnly: true
+                    rank:
+                      type: string
+                      readOnly: true
+          description: ''
+  /top/{id}/:
+    get:
+      operationId: retrieveMovie
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this movie.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  comments:
+                    type: string
+                    readOnly: true
+                  rank:
+                    type: string
+                    readOnly: true
+          description: ''

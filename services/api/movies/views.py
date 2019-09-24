@@ -15,6 +15,13 @@ class RatingViewSet(viewsets.ModelViewSet):
     serializer_class = RatingSerializer
 
 class CommentViewSet(viewsets.ModelViewSet):
+
+    '''
+    List all comments or comments by movie_id
+    parameters:
+    movie - the movie id
+    '''
+
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
@@ -27,6 +34,9 @@ class CommentViewSet(viewsets.ModelViewSet):
         
 
 class MovieViewSet(viewsets.ModelViewSet):
+    '''
+    List all movies
+    '''
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
     filter_backends = [YearRangeFilterBackend, MovieFieldFilterBackend, filters.OrderingFilter]
@@ -39,6 +49,12 @@ class MovieViewSet(viewsets.ModelViewSet):
         
 
 class TopViewSet(viewsets.ReadOnlyModelViewSet):
+    '''
+    List movies in order by number of comments
+    parameters:
+    start - the beginning year in the range of movies to list
+    end - the end year in the range of movies to list
+    '''
     queryset = Movie.objects.annotate(total_comments=Count('comments__id')).order_by('total_comments').reverse()
     serializer_class = TopSerializer
     filter_backends = [YearRangeFilterBackend]

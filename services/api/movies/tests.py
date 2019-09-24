@@ -274,4 +274,4 @@ class TestOrdering(TestCase):
         response = self.client.get('/movies/?ordering=-imdbrating')
         json = response.json()
         self.assertEqual(json[0]['imdbrating'], '9.2')
-        self.assertEqual(json[-1]['runtime'], '7')
+        self.assertEqual(json[-1]['imdbrating'], '7')
