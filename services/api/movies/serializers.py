@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from django.db.models import Count
+from django.forms.models import model_to_dict
 from .models import *
+from .utils import *
 
 class RatingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,16 +15,18 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class MovieSerializer(serializers.ModelSerializer):
-    ratings = RatingSerializer(many=True, allow_null=True, read_only=False)
-    comments = serializers.SerializerMethodField()
+    ratings = RatingSerializer(many=True, allow_null=True, read_only=True)
+    comments = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Movie
         fields = '__all__'
+        read_only_fields = [key for key in list(model_to_dict(Movie).keys()) if key != 'title']
 
     def create(self, validated_data):
-        ratings_data = validated_data.pop('ratings')
-        movie = Movie.objects.create(**validated_data)
+        data = make_request_and_format(validated_data['title'])
+        ratings_data = data.pop('ratings')
+        movie = Movie.objects.create(**data)
         for rating in ratings_data:
             Rating.objects.create(movie=movie, **rating)
         return movie

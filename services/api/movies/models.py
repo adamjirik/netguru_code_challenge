@@ -5,7 +5,7 @@ class Movie(models.Model):
     title = models.CharField(max_length=177) # 177 is the longest movie title in existence
     year = models.CharField(max_length=4)
     rated = models.CharField(max_length=5, null=True)
-    released = models.DateField()
+    released = models.DateField(null=True)
     runtime = models.IntegerField()
     genre = models.CharField(max_length=70, null=True)
     director = models.CharField(max_length=70)
@@ -28,9 +28,9 @@ class Movie(models.Model):
 
 class Comment(models.Model):
     value = models.TextField()
-    movie = models.ForeignKey("Movie", related_name='comments', on_delete="cascade")
+    movie = models.ForeignKey("Movie", related_name='comments', on_delete=models.CASCADE)
 
 class Rating(models.Model):
     source = models.CharField(max_length=100)
     value = models.CharField(max_length=20)
-    movie = models.ForeignKey("Movie", related_name='ratings', on_delete="cascade")
+    movie = models.ForeignKey("Movie", related_name='ratings', on_delete=models.CASCADE)

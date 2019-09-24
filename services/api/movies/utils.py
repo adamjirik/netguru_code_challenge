@@ -27,7 +27,7 @@ def format_movie_fields(movie):
             movie[key] = None
             continue
         if key == "released" or key == "dvd":
-            dt = datetime.datetime.strptime(movie["dvd"], '%d %b %Y')
+            dt = datetime.datetime.strptime(movie[key], '%d %b %Y')
             date = datetime.date(day=dt.day, month=dt.month, year=dt.year)
             movie[key] = date
         if key == "imdbvotes":
@@ -36,6 +36,10 @@ def format_movie_fields(movie):
             movie[key] = Decimal(movie[key])
         if key == 'runtime':
             movie[key] = int(movie[key].replace(' min', ''))
+        if key == 'boxoffice':
+            movie[key] = movie[key] = movie[key].replace('$', '')
+            movie[key] = movie[key].replace(',', '')
+            movie[key] = int(movie[key])
     return movie
 
 def make_request_and_format(title):

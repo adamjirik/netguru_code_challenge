@@ -10,26 +10,30 @@ import os
 
 # helper functions
 
-def make_movie_objects(years=['1999']):
+def make_movie_objects(years=['1999'], genre='Action, Sci-Fi', imdbrating='8', runtime=80):
         movie = Movie.objects.create(title="test movie", 
                                             year=random.choice(years), 
                                             rated="PG-13", 
                                             released=date(year=1999, month=7, day=10),
-                                            runtime=196,
                                             director="John Doe", 
                                             writer="John Doe",
                                             actors="John Doe, Jim Doe",
                                             language="English",
+                                            genre=genre,
+                                            imdbrating=imdbrating,
+                                            runtime=runtime,
                                             country="USA")
         movie2 = Movie.objects.create(title="test movie2", 
                                             year=random.choice(years), 
                                             rated="PG-13", 
                                             released=date(year=1999, month=7, day=10),
-                                            runtime=196,
                                             director="John Doe", 
                                             writer="John Doe",
                                             actors="John Doe, Jim Doe",
-                                            language="English",
+                                            language="Polish",
+                                            genre=genre,
+                                            imdbrating=imdbrating,
+                                            runtime=runtime,
                                             country="USA")
         return [movie, movie2]
 
@@ -77,6 +81,7 @@ class TestOmdbApi(TestCase):
         for rating in saved_ratings:
             self.assertIn(rating, saved_movies[0].ratings.all())
 
+
 class TestMovieModel(TestCase):
 
     def test_can_save_object(self):
@@ -97,6 +102,7 @@ class TestMovieModel(TestCase):
         self.assertEqual(saved_comments.count(), 1)
         self.assertIn(comment, movies[0].comments.all())
         
+
 class TestMovieViewSet(TestCase):
     def setUp(self):
         for movie in make_movie_objects():
@@ -178,13 +184,10 @@ class TestCommentViewSet(TestCase):
         self.assertIn(comment, movie.comments.all())
 
 
-
-
-
 class TestTopView(TestCase):
     def setUp(self):
-        movies_80s = make_movie_objects(['1980', '1981', '1982'])
-        movies_90s = make_movie_objects(['1990', '1991', '1992'])
+        movies_80s = make_movie_objects(years=['1980', '1981', '1982'])
+        movies_90s = make_movie_objects(years=['1990', '1991', '1992'])
         for movie in movies_90s:
             comment = Comment(value='comment1', movie=movie)
             comment2 = Comment(value='comment2', movie=movie)
@@ -214,3 +217,56 @@ class TestTopView(TestCase):
         json_ids = [ranking['id'] for ranking in json]
         for id in json_ids:
             self.assertIn(id, [movie.id for movie in movies_90s])
+
+class TestFilterBackends(TestCase):
+
+    def setUp(self):
+        movies_with_fields_1 = make_movie_objects(genre='Action, Sci-Fi', imdbrating='7', runtime=90)
+        movies_with_fields_2 = make_movie_objects(genre='Romance, Thriller', imdbrating='8', runtime=70)
+        movies_with_fields_3 = make_movie_objects(genre='Comedy', imdbrating='9.2', runtime=60)
+
+        for movie in movies_with_fields_1:
+            movie.save()
+        for movie in movies_with_fields_2:
+            movie.save()
+        for movie in movies_with_fields_3:
+            movie.save()
+
+    def test_filter_movie_genre_field(self):
+        response = self.client.get('/movies/?genre=action')
+        json = response.json()
+        self.assertEqual(len(json), 2)
+
+    def test_filter_movie_multiple_fields(self):
+        response = self.client.get('/movies/?genre=action&language=polish')
+        json = response.json()
+        self.assertEqual(len(json), 1)
+
+    def test_gte_fields(self):
+        response = self.client.get('/movies/?imdbrating=8')
+        json = response.json()
+        self.assertEqual(len(json), 4)
+        response = self.client.get('/movies/?imdbrating=8&runtime=65')
+        json = response.json()
+        self.assertEqual(len(json), 2)
+
+
+class TestOrdering(TestCase):
+
+    def setUp(self):
+        movies_with_fields_1 = make_movie_objects(genre='Action, Sci-Fi', imdbrating='7', runtime=90)
+        movies_with_fields_2 = make_movie_objects(genre='Romance, Thriller', imdbrating='8', runtime=70)
+        movies_with_fields_3 = make_movie_objects(genre='Comedy', imdbrating='9.2', runtime=60)
+
+        for movie in movies_with_fields_1:
+            movie.save()
+        for movie in movies_with_fields_2:
+            movie.save()
+        for movie in movies_with_fields_3:
+            movie.save()
+
+    def test_ordering_fields(self):
+        response = self.client.get('/movies/?ordering=runtime')
+        json = response.json()
+        self.assertEqual(json[0]['runtime'], 60)
+        self.assertEqual(json[-1]['runtime'], 90)
